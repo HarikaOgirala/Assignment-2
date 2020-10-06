@@ -1,5 +1,5 @@
 package com.designpatterns.assignment2;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 import com.designpatterns.sensors.Led;
 
@@ -8,7 +8,7 @@ public abstract class Account {
 	private String account_type;
 	private double balance;
 	private String identifier;
-	
+	protected Account nextHandler;	
 	
 	public Account(String account_type, double balance, String identifier) {
 		super();
@@ -40,7 +40,18 @@ public abstract class Account {
 	
 	public abstract void deduct(double amount) throws InsufficientFundsException;
 	
-	public abstract void setNextChain(Account nextChain);
+	protected  void setNextHandler(Account chain)
+	{
+		this.nextHandler = chain;
+	}
+	
+    protected void setNextHandlers(ArrayList<Account> handlers) {
+
+	for (int i = 0; i < handlers.size() - 1; i++) {
+		handlers.get(i).setNextHandler(handlers.get(i + 1));
+
+	}
+	}
 	
 	public void ToggleableSensor(String identifier)
 	{

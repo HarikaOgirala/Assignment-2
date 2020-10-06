@@ -2,7 +2,6 @@ package com.designpatterns.assignment2;
 
 public class CreditAccount extends Account {
 
-	private Account chain;
 	private double creditBalance;
 	private String identifier;
 
@@ -12,12 +11,6 @@ public class CreditAccount extends Account {
 		this.identifier=identifier;
 	}
 
-	public void setNextChain(Account nextChain)
-	{
-		this.chain=nextChain;
-	}
-
-
 	public void deduct(double amount) throws InsufficientFundsException
 	{
 
@@ -26,33 +19,29 @@ public class CreditAccount extends Account {
 
 		if(amount <= this.creditBalance) {
 			this.creditBalance = this.creditBalance - amount;
+			this.setBalance(creditBalance);
 			if(this.creditBalance==0)
-				super.ToggleableSensor(this.identifier);
-			System.out.println("After deduct - Account type:"+this.getAccount_type()+"   "+identifier+"   Balance :"+this.creditBalance);
+				ToggleableSensor(this.identifier); // to check
 		}
 		else {
 			amount = amount - creditBalance;
 			if(amount >= 0)
 			{
 				this.creditBalance = 0;
-				super.ToggleableSensor(this.identifier);
+				super.ToggleableSensor(this.identifier); //to check
+				this.setBalance(creditBalance);
 				if(amount != 0 && creditBalance == 0) {
 
-					if (this.chain !=null)
+					if (this.nextHandler !=null)
 					{
-						System.out.println("moving to next acc " +this.chain.getAccount_type());
-						this.chain.deduct(amount);
-						System.out.println("After deduct - Account type:"+this.getAccount_type()+"   " +identifier+"   Balance :"+this.creditBalance);
+						System.out.println("moving to next acc " +this.nextHandler.getAccount_type());
+						this.nextHandler.deduct(amount);
 					}
 					else
 						throw new InsufficientFundsException("You have insufficient funds in your accounts");	
 				}
 			}
 		}
-
-
-
-		//System.out.println("creditAccountBalance after deduct :"+creditBalance);
 
 	}
 

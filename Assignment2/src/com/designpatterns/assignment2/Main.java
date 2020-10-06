@@ -1,7 +1,7 @@
 /* * Group Members 
  Swetaa Ganesan
- Shobitha Kadandelu Shrinivasa
  Nagaharika Ogirala
+ Shobitha Kadandelu Shrinivasa
  Priyanka Pandey 
  * */
  
@@ -18,35 +18,33 @@ public class Main {
 		CreditAccount credit2=new CreditAccount("credit",50.0, "C2");
 		CreditAccount credit3=new CreditAccount("credit",50.0, "C3");
 		
-		//setting chain
-		checking.setNextChain(saving);
-		saving.setNextChain(credit1);
-		credit1.setNextChain(credit2);
-		credit2.setNextChain(credit3);
-		
 		//create customer object and add accounts to it
-		Customer custA = new Customer(checking);
-		custA.addAccount(saving);
-		custA.addAccount(credit1);
-		custA.addAccount(credit2);
-		custA.addAccount(credit3);
+		Customer customer = new Customer(checking);
+		customer.addAccount(saving);
+		customer.addAccount(credit1);
+		customer.addAccount(credit2);
+		customer.addAccount(credit3);
 		
 		//print all the accounts of the customer
 		System.out.println("***Accounts held by the customer*** ");
-		custA.accountsHeld();
+		customer.accountsHeld();
 		
 		//pay()
-		System.out.println("****Pay method*****");
+		System.out.println("*********Pay method**********");
 		System.out.println("Pay(150)");
-		custA.pay(150.0);
-		System.out.println("*************");
+		customer.pay(150.0);
+		System.out.println("***New Balances after deduct***");
+		customer.accountsHeld();
+		System.out.println("----------------------------------------");
 		System.out.println("Pay(220)");
-		custA.pay(220.0);
-		System.out.println("*************");
+		customer.pay(220.0);
+		System.out.println("***New Balances after deduct***");
+		customer.accountsHeld();
+		System.out.println("----------------------------------------");
 		System.out.println("Pay(5000)");
-		custA.pay(5000.0);
-		
-
+		customer.pay(5000.0);
+		System.out.println("***New Balances after deduct***");
+		customer.accountsHeld();
 	}
 
 }
