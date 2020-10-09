@@ -1,8 +1,8 @@
 package com.designpatterns.exceptions;
 
 /**
- * throws: bankaccount.deduct(), creditaccount.deduct()
- * handled in CheckProcessor
+ * throws: bankaccount.deduct(), creditaccount.deduct() handled in
+ * CheckProcessor
  *
  */
 public class InsufficientFundsException extends RuntimeException {

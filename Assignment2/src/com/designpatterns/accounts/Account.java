@@ -1,21 +1,18 @@
 package com.designpatterns.accounts;
+
 import java.util.ArrayList;
 
 import com.designpatterns.exceptions.InsufficientFundsException;
 import com.designpatterns.sensors.ToggleableSensor;
 import com.designpatterns.sensors.Led;
 
-/**
- * @author nagah
- *
- */
 public abstract class Account {
 
 	private String accountType;
 	private double balance;
-	private String identifier;
-	protected Account nextHandler;	
-	protected static double totalBalance = 0;
+	protected String identifier;
+	protected Account nextHandler;
+	private static double totalBalance = 0;
 	ToggleableSensor sensor = new Led(identifier);
 
 	public Account(String accountType, double balance, String identifier) {
@@ -37,14 +34,25 @@ public abstract class Account {
 	public String getAccountType() {
 		return accountType;
 	}
+
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
+
 	public double getBalance() {
 		return balance;
 	}
+
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+
+	public void setTotalBalance(double totalBal) {
+		totalBalance = totalBal;
+	}
+
+	public double getTotalBalance() {
+		return totalBalance;
 	}
 
 	/**
@@ -54,9 +62,10 @@ public abstract class Account {
 	public void setTotalBalance() {
 		totalBalance = totalBalance + balance;
 	}
-	
+
 	/**
 	 * abstract method that initiates the CoR Design Pattern
+	 * 
 	 * @param amount
 	 * @throws InsufficientFundsException
 	 */
@@ -64,6 +73,7 @@ public abstract class Account {
 
 	/**
 	 * creates a chain of account to sustain the order of accounts
+	 * 
 	 * @param handlers
 	 */
 	public void setNextHandlers(ArrayList<Account> handlers) {
@@ -73,22 +83,22 @@ public abstract class Account {
 		}
 	}
 
-
 	/**
-	 * invokes the toggle method in Led class
-	 * and calls the getSatus() method of the same class
+	 * invokes the toggle method in Led class and calls the getSatus() method of the
+	 * same class
 	 */
-	public void toggle()
-	{
-		//Led ON when balance is zero
+	public void toggle(String identifier) {
+		// Led ON when balance is zero
+		sensor = new Led(identifier);
 		sensor.toggle();
-		status();	
+		System.out.print(identifier + "'s ");
+		status();
 	}
 
 	/**
 	 * print the status of Led sensor
 	 */
 	public void status() {
-		System.out.println("Led Sensor: "+sensor.getStatus());
+		System.out.println("Led Sensor: " + sensor.getStatus());
 	}
 }

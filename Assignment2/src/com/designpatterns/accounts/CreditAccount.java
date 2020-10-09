@@ -8,55 +8,49 @@ public class CreditAccount extends Account {
 
 	/**
 	 * parameterized constructor
+	 * 
 	 * @param accountType
 	 * @param balance
 	 * @param identifier
 	 */
 	public CreditAccount(String accountType, double balance, String identifier) {
-		super(accountType, balance, accountType);
+		super(accountType, balance, identifier);
 		this.creditBalance = balance;
 	}
 
 	/**
 	 * CoR method
+	 * 
 	 * @param amount
 	 * @throws InsufficientFundsException
 	 */
-	public void deduct(double amount) throws InsufficientFundsException
-	{
-		//print current account details
-		System.out.println(this.getAccountType()+ " : "+this.creditBalance+"\t due :"+ amount );
+	public void deduct(double amount) throws InsufficientFundsException {
+		// print current account details
+		System.out.println(this.getAccountType() + " : " + this.creditBalance + "\t due :" + amount);
 
-		if(amount <= this.creditBalance) {
+		if (amount <= this.creditBalance) {
+			setTotalBalance(getTotalBalance() - amount);
 			this.creditBalance = this.creditBalance - amount;
 			this.setBalance(creditBalance);
-			if(this.creditBalance==0)
-				toggle(); // to check
-		}
-		else {
+			if (this.creditBalance == 0)
+				toggle(identifier);
+		} else {
+			this.setTotalBalance(this.creditBalance);
 			amount = amount - creditBalance;
-			if(amount >= 0)
-			{
-				this.creditBalance = 0;
-				toggle(); //to check
+			this.creditBalance = 0;
+			if (this.creditBalance == 0 && this.nextHandler != null) {
+				toggle(identifier); // to check
 				this.setBalance(creditBalance);
-				if(amount != 0 && creditBalance == 0) {
-
-					if (this.nextHandler !=null)
-					{
-						System.out.println("next account in chain: " +this.nextHandler.getAccountType());
-						this.nextHandler.deduct(amount);
-					}
-					else
-						throw new InsufficientFundsException();	
-				}
-			}
+				System.out.println("next account in chain: " + this.nextHandler.getAccountType());
+				this.nextHandler.deduct(amount);
+			} else
+				throw new InsufficientFundsException();
 		}
+
 	}
 
-	public void charge(double amount)
-	{
-		//yet to be implemented
+	public void charge(double amount) {
+		// yet to be implemented
 	}
 
 }
