@@ -9,7 +9,8 @@ import com.designpatterns.sensors.Led;
 public abstract class Account {
 
 	private String accountType;
-	private double balance;
+	protected double balance;
+	protected double creditLimit;
 	protected String identifier;
 	protected Account nextHandler;
 	private static double totalBalance = 0;

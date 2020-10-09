@@ -34,7 +34,7 @@ public class Customer implements PayingParty {
 			System.out.println(acc.getAccountType() + " : " + acc.getBalance());
 			acc.status();
 		}
-		System.out.println("new total balance : " + accounts.get(0).getTotalBalance());
+		//System.out.println("new total balance : " + accounts.get(0).getTotalBalance());
 	}
 
 	/**

@@ -53,8 +53,10 @@ public class BankAccount extends Account {
 		}
 	}
 
-	public void makeDeposit(double amount) {
-		// yet to be implemented
+
+public void makeDeposit(double amount)
+	{
+		this.balance = amount+this.balance;
 	}
 
 }

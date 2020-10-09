@@ -49,8 +49,28 @@ public class CreditAccount extends Account {
 
 	}
 
-	public void charge(double amount) {
-		// yet to be implemented
+	public double creditlimit(double amount)
+	{
+		return this.creditLimit = amount;
 	}
 
+	public void charge(double amount) throws InsufficientFundsException
+	{
+		try {
+			if((amount+this.balance) < creditLimit)
+			{
+				this.balance = amount+this.balance;
+			}
+			else {
+				throw new InsufficientFundsException();
+			}
+		}
+		
+		catch(InsufficientFundsException e) {
+			System.out.println("In credit account====" + e.toString());
+			
+		}
+		
+			
+	}
 }

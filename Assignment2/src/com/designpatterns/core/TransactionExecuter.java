@@ -7,11 +7,10 @@ import com.designpatterns.payingparty.Customer;
 /**
  * Group Members
  * 
- * @author 
- * Swetaa Ganesan 
- * Nagaharika Ogirala 
- * Shobitha Kadandelu Shrinivasa
- * Priyanka Pandey
+ * @author Swetaa Ganesan 
+ *         Nagaharika Ogirala 
+ *         Shobitha Kadandelu Shrinivasa
+ *         Priyanka Pandey
  **/
 
 public class TransactionExecuter {
@@ -51,5 +50,20 @@ public class TransactionExecuter {
 		customer.pay(5000.0);
 		System.out.println("=========Balances after deduct==========");
 		customer.accountsHeld();
+
+		// deposit new amount to the bankaccount and set new creditlimit and deposit new
+		// amount
+		checking.makeDeposit(55);
+		saving.makeDeposit(75);
+		credit1.creditlimit(100);
+		credit1.charge(60);
+		credit1.charge(10);
+		System.out.println("------Adding new values to the accounts-----");
+		System.out.println("added new checkings deposit:" + checking.getBalance());
+		System.out.println("added new savings deposit:" + saving.getBalance());
+		System.out.println("added new credit amount:" + credit1.getBalance());
+		System.out.println("-------New BankAccount Balance and CreditAccount Balance-------- ");
+		customer.accountsHeld();
+
 	}
 }
