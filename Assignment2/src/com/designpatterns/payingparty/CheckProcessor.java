@@ -10,7 +10,6 @@ public class CheckProcessor {
 	public String identifier;
 	private Boolean payable = false;
 	private Led cpLed;
-	private String status;
 
 	/**
 	 * @param checkingAccount
@@ -31,9 +30,9 @@ public class CheckProcessor {
 
 			identifier = checkingAccount.getIdentifier();
 			checkingAccount.status();
-			System.out.println("identifier of checking account: "+identifier);
+			System.out.println("identifier of checking account: " + identifier);
 			cpLed = new Led(identifier);
-			//Led ON and delay it by 1 sec
+			// Led ON and delay it by 1 sec
 			cpLed.turnOn();
 			System.out.println(cpLed.toString());
 			TimeUnit.SECONDS.sleep(1);

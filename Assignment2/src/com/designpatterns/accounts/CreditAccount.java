@@ -53,11 +53,18 @@ public class CreditAccount extends Account {
 
 	}
 
+	/**
+	 * add amount to the existing credit balance only if the total is not greater
+	 * than CREDIT_LIMIT
+	 * 
+	 * @param amount
+	 * @throws InsufficientFundsException
+	 */
 	public void charge(double amount) throws InsufficientFundsException {
 		try {
 			if ((amount + this.balance) < CREDIT_LIMIT) {
 				this.balance = amount + this.balance;
-				this.setTotalBalance(totalBalance + amount);
+				this.setTotalBalance(getTotalBalance() + amount);
 				if (this.balance > 0 && (sensor.getStatus().toString() == "On")) {
 					System.out.println("Led Sensor : " + sensor.getStatus());
 					System.out.println(sensor.toggle());
@@ -69,7 +76,7 @@ public class CreditAccount extends Account {
 		}
 
 		catch (InsufficientFundsException e) {
-			System.out.println("In credit account====" + e.toString());
+			System.out.println("==========In credit account=========\n" + e.toString());
 
 		}
 

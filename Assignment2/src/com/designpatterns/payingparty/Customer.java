@@ -9,11 +9,11 @@ import com.designpatterns.sensors.ToggleableSensor;
 
 public class Customer implements PayingParty {
 
-	ArrayList<Account> accounts = new ArrayList<Account>();
-	CheckProcessor checkIfPayable = new CheckProcessor();
+	private ArrayList<Account> accounts = new ArrayList<Account>();
+	private CheckProcessor checkIfPayable = new CheckProcessor();
 	private boolean payable = false;
 
-	ToggleableSensor sensor = new Led(checkIfPayable.identifier);
+	private ToggleableSensor sensor = new Led(checkIfPayable.identifier);
 
 	public Customer() {
 
@@ -53,20 +53,24 @@ public class Customer implements PayingParty {
 			accounts.get(0).setNextHandlers(accounts);
 			try {
 				payable = checkIfPayable.processCheck((BankAccount) accounts.get(0), amount);
-				// to check -- role of payable after processCheck returning true or false??
+				if (payable)
+					System.out.println("\n********************TRANSACTION COMPLETE\n");
+				else
+					System.out.println("\n********************TRANSACTION FAILED\n");
+
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
 		}
 	}
 
-	/**
-	 * invokes the turnOn method in Led class
-	 */
-	public void ToggleableSensor() {
-		Led testLed = new Led(checkIfPayable.identifier);
-		testLed.turnOn();
-		System.out.println(testLed.toString());
+	public void toggle(String identifier) {
+		// Led ON when balance is zero
+
+		sensor = new Led(identifier);
+		sensor.toggle();
+		System.out.print(identifier + "'s ");
+		status();
 	}
 
 	/**
@@ -74,5 +78,45 @@ public class Customer implements PayingParty {
 	 */
 	public void status() {
 		System.out.println("Led Sensor: " + sensor.getStatus());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((accounts == null) ? 0 : accounts.hashCode());
+		result = prime * result + ((checkIfPayable == null) ? 0 : checkIfPayable.hashCode());
+		result = prime * result + (payable ? 1231 : 1237);
+		result = prime * result + ((sensor == null) ? 0 : sensor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (accounts == null) {
+			if (other.accounts != null)
+				return false;
+		} else if (!accounts.equals(other.accounts))
+			return false;
+		if (checkIfPayable == null) {
+			if (other.checkIfPayable != null)
+				return false;
+		} else if (!checkIfPayable.equals(other.checkIfPayable))
+			return false;
+		if (payable != other.payable)
+			return false;
+		if (sensor == null) {
+			if (other.sensor != null)
+				return false;
+		} else if (!sensor.equals(other.sensor))
+			return false;
+		return true;
 	}
 }
