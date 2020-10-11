@@ -1,6 +1,7 @@
 package com.designpatterns.accounts;
 
 import com.designpatterns.exceptions.InsufficientFundsException;
+import com.designpatterns.sensors.Led;
 
 public class BankAccount extends Account {
 
@@ -48,15 +49,23 @@ public class BankAccount extends Account {
 				System.out.println("next account in chain: " + this.nextHandler.getAccountType());
 				nextHandler.deduct(amount);
 			} else {
+				this.setTotalBalance(amount);
 				nextHandler.deduct(amount);
 			}
 		}
 	}
 
+	public void makeDeposit(double amount) {
 
-public void makeDeposit(double amount)
-	{
-		this.balance = amount+this.balance;
+		this.balance = amount + this.balance;
+		this.setTotalBalance(totalBalance + amount);
+
+		if (this.balance > 0 && (sensor.getStatus().toString() == "On")) {
+			System.out.println("Led Sensor : " + sensor.getStatus());
+			System.out.println(sensor.toggle());
+
+		}
+
 	}
 
 }

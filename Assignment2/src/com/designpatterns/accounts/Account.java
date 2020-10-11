@@ -13,7 +13,10 @@ public abstract class Account {
 	protected double creditLimit;
 	protected String identifier;
 	protected Account nextHandler;
-	private static double totalBalance = 0;
+	protected static double totalBalance = 0;
+	protected String identifier1;
+	protected Account Type = null;
+
 	ToggleableSensor sensor = new Led(identifier);
 
 	public Account(String accountType, double balance, String identifier) {
@@ -85,11 +88,12 @@ public abstract class Account {
 	}
 
 	/**
-	 * invokes the toggle method in Led class and calls the getSatus() method of the
-	 * same class
+	 * invokes the toggle method in Led class and calls the getStatus() method of
+	 * the same class
 	 */
 	public void toggle(String identifier) {
 		// Led ON when balance is zero
+
 		sensor = new Led(identifier);
 		sensor.toggle();
 		System.out.print(identifier + "'s ");

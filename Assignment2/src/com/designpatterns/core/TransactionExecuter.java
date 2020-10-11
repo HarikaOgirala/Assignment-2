@@ -7,9 +7,7 @@ import com.designpatterns.payingparty.Customer;
 /**
  * Group Members
  * 
- * @author Swetaa Ganesan 
- *         Nagaharika Ogirala 
- *         Shobitha Kadandelu Shrinivasa
+ * @author Swetaa Ganesan Nagaharika Ogirala Shobitha Kadandelu Shrinivasa
  *         Priyanka Pandey
  **/
 
@@ -51,18 +49,16 @@ public class TransactionExecuter {
 		System.out.println("=========Balances after deduct==========");
 		customer.accountsHeld();
 
-		// deposit new amount to the bankaccount and set new creditlimit and deposit new
-		// amount
+		// deposit new amount to the bankaccount and set new creditlimit
+		System.out.println("------Making new deposit to the existing accounts-----");
 		checking.makeDeposit(55);
-		saving.makeDeposit(75);
-		credit1.creditlimit(100);
-		credit1.charge(60);
-		credit1.charge(10);
-		System.out.println("------Adding new values to the accounts-----");
 		System.out.println("added new checkings deposit:" + checking.getBalance());
+		saving.makeDeposit(75);
 		System.out.println("added new savings deposit:" + saving.getBalance());
+		credit1.charge(60);
+		credit1.charge(110);
 		System.out.println("added new credit amount:" + credit1.getBalance());
-		System.out.println("-------New BankAccount Balance and CreditAccount Balance-------- ");
+		System.out.println("-------New BankAccount and CreditAccount Balance-------- ");
 		customer.accountsHeld();
 
 	}
