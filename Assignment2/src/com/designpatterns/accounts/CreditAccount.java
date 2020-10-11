@@ -5,6 +5,7 @@ import com.designpatterns.exceptions.InsufficientFundsException;
 public class CreditAccount extends Account {
 
 	private double creditBalance;
+	private final double CREDIT_LIMIT = 100;
 
 	/**
 	 * parameterized constructor
@@ -29,7 +30,7 @@ public class CreditAccount extends Account {
 		System.out.println(this.getAccountType() + " : " + this.creditBalance + "\t due :" + amount);
 
 		if (amount <= this.creditBalance) {
-			setTotalBalance(getTotalBalance() - amount);
+			this.setTotalBalance(getTotalBalance() - amount);
 			this.creditBalance = this.creditBalance - amount;
 			this.setBalance(creditBalance);
 			if (this.creditBalance == 0)
@@ -38,7 +39,10 @@ public class CreditAccount extends Account {
 			this.setTotalBalance(this.creditBalance);
 			amount = amount - creditBalance;
 			this.creditBalance = 0;
+
 			if (this.creditBalance == 0 && this.nextHandler != null) {
+				// if (amount < this.getTotalBalance() && this.nextHandler != null) {
+
 				toggle(identifier); // to check
 				this.setBalance(creditBalance);
 				System.out.println("next account in chain: " + this.nextHandler.getAccountType());
@@ -49,8 +53,25 @@ public class CreditAccount extends Account {
 
 	}
 
-	public void charge(double amount) {
-		// yet to be implemented
-	}
+	public void charge(double amount) throws InsufficientFundsException {
+		try {
+			if ((amount + this.balance) < CREDIT_LIMIT) {
+				this.balance = amount + this.balance;
+				this.setTotalBalance(totalBalance + amount);
+				if (this.balance > 0 && (sensor.getStatus().toString() == "On")) {
+					System.out.println("Led Sensor : " + sensor.getStatus());
+					System.out.println(sensor.toggle());
 
+				}
+			} else {
+				throw new InsufficientFundsException();
+			}
+		}
+
+		catch (InsufficientFundsException e) {
+			System.out.println("In credit account====" + e.toString());
+
+		}
+
+	}
 }

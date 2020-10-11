@@ -12,6 +12,7 @@ public class Customer implements PayingParty {
 	ArrayList<Account> accounts = new ArrayList<Account>();
 	CheckProcessor checkIfPayable = new CheckProcessor();
 	private boolean payable = false;
+
 	ToggleableSensor sensor = new Led(checkIfPayable.identifier);
 
 	public Customer() {
@@ -30,18 +31,22 @@ public class Customer implements PayingParty {
 	 * display all accounts a customer holds
 	 */
 	public void accountsHeld() {
+
 		for (Account acc : accounts) {
+
 			System.out.println(acc.getAccountType() + " : " + acc.getBalance());
 			acc.status();
+
 		}
 		System.out.println("new total balance : " + accounts.get(0).getTotalBalance());
 	}
 
 	/**
 	 * @param amount invokes the procesCheck() method after setting the CoR using
-	 * setNextHandlers()
+	 *               setNextHandlers()
 	 *
 	 */
+
 	public void pay(double amount) {
 
 		if (accounts.get(0).getAccountType().equalsIgnoreCase("checking")) {
