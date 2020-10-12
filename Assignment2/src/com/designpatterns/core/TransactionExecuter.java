@@ -58,7 +58,7 @@ public class TransactionExecuter {
 		credit1.charge(60);
 		credit1.charge(110);
 		System.out.println("added new credit amount:" + credit1.getBalance());
-		System.out.println("-------New BankAccount and CreditAccount Balance-------- ");
+		System.out.println("=========Balances after deposit and charge==========");
 		customer.accountsHeld();
 
 	}

@@ -10,12 +10,9 @@ public abstract class Account {
 
 	private String accountType;
 	protected double balance;
-	protected double creditLimit;
 	protected String identifier;
 	protected Account nextHandler;
-	protected static double totalBalance = 0;
-	protected String identifier1;
-	protected Account Type = null;
+	private static double totalBalance = 0;
 
 	ToggleableSensor sensor = new Led(identifier);
 
@@ -105,5 +102,53 @@ public abstract class Account {
 	 */
 	public void status() {
 		System.out.println("Led Sensor: " + sensor.getStatus());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(balance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + ((nextHandler == null) ? 0 : nextHandler.hashCode());
+		result = prime * result + ((sensor == null) ? 0 : sensor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Account other = (Account) obj;
+		if (accountType == null) {
+			if (other.accountType != null)
+				return false;
+		} else if (!accountType.equals(other.accountType))
+			return false;
+		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
+			return false;
+		if (identifier == null) {
+			if (other.identifier != null)
+				return false;
+		} else if (!identifier.equals(other.identifier))
+			return false;
+		if (nextHandler == null) {
+			if (other.nextHandler != null)
+				return false;
+		} else if (!nextHandler.equals(other.nextHandler))
+			return false;
+		if (sensor == null) {
+			if (other.sensor != null)
+				return false;
+		} else if (!sensor.equals(other.sensor))
+			return false;
+		return true;
 	}
 }

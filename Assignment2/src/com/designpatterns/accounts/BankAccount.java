@@ -1,17 +1,15 @@
 package com.designpatterns.accounts;
 
 import com.designpatterns.exceptions.InsufficientFundsException;
-import com.designpatterns.sensors.Led;
 
 public class BankAccount extends Account {
 
 	private double bankAccountBalance;
-	private double totalAmount;
 
 	/**
 	 * parameterized constructor
 	 * 
-	 * @param account_type
+	 * @param accountType
 	 * @param balance
 	 * @param identifier
 	 */
@@ -28,7 +26,6 @@ public class BankAccount extends Account {
 	 * @throws InsufficientFundsException
 	 */
 	public void deduct(double amount) throws InsufficientFundsException {
-		this.totalAmount = amount;
 		System.out.println(this.getAccountType() + " : " + bankAccountBalance + "\t due :" + amount);
 
 		if (amount <= this.bankAccountBalance) {
@@ -55,10 +52,15 @@ public class BankAccount extends Account {
 		}
 	}
 
+	/**
+	 * adding the deposit amount to BankAccount balance
+	 * 
+	 * @param amount
+	 */
 	public void makeDeposit(double amount) {
 
 		this.balance = amount + this.balance;
-		this.setTotalBalance(totalBalance + amount);
+		this.setTotalBalance(getTotalBalance() + amount);
 
 		if (this.balance > 0 && (sensor.getStatus().toString() == "On")) {
 			System.out.println("Led Sensor : " + sensor.getStatus());
